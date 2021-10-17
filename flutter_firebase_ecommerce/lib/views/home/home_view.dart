@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_ecommerce/models/product_model.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,10 +25,17 @@ class HomeView extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          CollectionReference collectionRef =
+              FirebaseFirestore.instance.collection('products');
+          QuerySnapshot querySnapshot = await collectionRef.get();
+          final allData = querySnapshot.docs
+              .map((doc) => ProductModel.fromMap(doc.data()))
+              .toList();
+        },
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
