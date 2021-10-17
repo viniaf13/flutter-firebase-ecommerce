@@ -6,14 +6,19 @@ class LoginTextForm extends StatelessWidget {
   final String labelText;
   final bool isObscured;
   final TextEditingController textController;
+  final Function(String) onChanged;
 
-  const LoginTextForm(this.labelText, this.textController,
-      [this.isObscured = false]);
+  const LoginTextForm(
+      {required this.labelText,
+      required this.textController,
+      required this.onChanged,
+      this.isObscured = false});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
+      onChanged: onChanged,
       obscureText: isObscured,
       decoration: InputDecoration(
         label: Text(labelText),

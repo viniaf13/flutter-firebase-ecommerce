@@ -10,43 +10,48 @@ import 'package:get/instance_manager.dart';
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
 
-  final AuthenticationController _authenticationController = Get.find();
+  final AuthenticationController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Obx(
-          () => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FractionallySizedBox(
-                widthFactor: 0.75,
-                child: Column(
-                  children: [
-                    LoginTextForm(
-                        'Email', _authenticationController.email.value),
-                    LoginTextForm('Senha',
-                        _authenticationController.password.value, true),
-                  ],
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FractionallySizedBox(
+              widthFactor: 0.75,
+              child: Column(
+                children: [
+                  LoginTextForm(
+                      labelText: 'Email',
+                      textController: _authController.emailController,
+                      onChanged: (String text) =>
+                          _authController.email.value = text),
+                  LoginTextForm(
+                    labelText: 'Senha',
+                    textController: _authController.passwordController,
+                    onChanged: (String text) =>
+                        _authController.password.value = text,
+                    isObscured: true,
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(top: Get.width * 0.1),
-                child: TextButton(
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: Get.width * 0.1),
+              child: Obx(
+                () => TextButton(
                   child: const Text('Login'),
-                  onPressed: () => _authenticationController.signIn(
-                      _authenticationController.email.value.text,
-                      _authenticationController.password.value.text),
+                  onPressed: _authController.isEmailSenhaPreenchidos
+                      ? () => _authController.signIn(
+                          _authController.email.value,
+                          _authController.password.value)
+                      : null,
                 ),
-                // _authenticationController.isEmailSenhaPreenchidos.value
-                //     ? () => _authenticationController.signIn(
-                //         _authenticationController.email.value.text,
-                //         _authenticationController.password.value.text)
-                //     : null),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

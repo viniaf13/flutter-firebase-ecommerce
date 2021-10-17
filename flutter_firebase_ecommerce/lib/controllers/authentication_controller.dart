@@ -4,14 +4,17 @@ import 'package:flutter_firebase_ecommerce/views/home/home_view.dart';
 import 'package:get/get.dart';
 
 class AuthenticationController extends GetxController {
-  Rx<TextEditingController> email = TextEditingController().obs;
-  Rx<TextEditingController> password = TextEditingController().obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Rx<String> email = ''.obs;
+  Rx<String> password = ''.obs;
 
   // ignore: unused_field
   final UserRepository _userRepository;
 
-  Rx<bool> get isEmailSenhaPreenchidos =>
-      (email.value.text.isNotEmpty && password.value.text.isNotEmpty).obs;
+  bool get isEmailSenhaPreenchidos =>
+      email.value.isNotEmpty && password.value.isNotEmpty;
 
   AuthenticationController(this._userRepository);
 
@@ -19,7 +22,17 @@ class AuthenticationController extends GetxController {
     await _userRepository
         .authenticateUser(email, password)
         .then((isUsuarioAutenticado) {
-      if (isUsuarioAutenticado) Get.off(const HomeView());
+      if (isUsuarioAutenticado) {
+        clearController();
+        Get.off(const HomeView());
+      }
     });
+  }
+
+  void clearController() {
+    emailController.clear();
+    passwordController.clear();
+    email.value = '';
+    password.value = '';
   }
 }
