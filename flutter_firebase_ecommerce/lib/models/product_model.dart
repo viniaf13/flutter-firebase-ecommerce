@@ -1,8 +1,8 @@
 class ProductModel {
-  String? id;
-  String? name;
-  String? image;
-  int? price;
+  String id = '';
+  String name = '';
+  String image = '';
+  int price = 0;
 
   ProductModel(this.id, this.name, this.image, this.price);
 

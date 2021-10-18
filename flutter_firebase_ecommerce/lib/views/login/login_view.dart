@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/authentication_controller.dart';
+import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
+import 'package:flutter_firebase_ecommerce/views/home/home_view.dart';
 import 'package:flutter_firebase_ecommerce/views/login/widgets/login_text_form.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
@@ -11,6 +13,7 @@ class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
 
   final AuthenticationController _authController = Get.find();
+  final ProductsController _productsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +47,17 @@ class LoginView extends StatelessWidget {
                 () => TextButton(
                   child: const Text('Login'),
                   onPressed: _authController.isEmailSenhaPreenchidos
-                      ? () => _authController.signIn(
-                          _authController.email.value,
-                          _authController.password.value)
+                      ? () async {
+                          await _authController
+                              .signIn(_authController.email.value,
+                                  _authController.password.value)
+                              .then((sucess) async {
+                            if (sucess) {
+                              await _productsController.getAllProducts();
+                              Get.off(() => HomeView());
+                            }
+                          });
+                        }
                       : null,
                 ),
               ),

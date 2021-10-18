@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/repositories/user_repository.dart';
-import 'package:flutter_firebase_ecommerce/views/home/home_view.dart';
 import 'package:get/get.dart';
 
 class AuthenticationController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   Rx<String> email = ''.obs;
   Rx<String> password = ''.obs;
+
+  bool _isLoggedIn = false;
 
   // ignore: unused_field
   final UserRepository _userRepository;
@@ -18,15 +18,16 @@ class AuthenticationController extends GetxController {
 
   AuthenticationController(this._userRepository);
 
-  void signIn(String email, String password) async {
+  Future<bool> signIn(String email, String password) async {
     await _userRepository
         .authenticateUser(email, password)
         .then((isUsuarioAutenticado) {
       if (isUsuarioAutenticado) {
         clearController();
-        Get.off(() => const HomeView());
+        _isLoggedIn = true;
       }
     });
+    return _isLoggedIn;
   }
 
   void clearController() {
