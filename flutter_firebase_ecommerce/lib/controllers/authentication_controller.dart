@@ -24,7 +24,7 @@ class AuthenticationController extends GetxController {
         .then((isUsuarioAutenticado) {
       if (isUsuarioAutenticado) {
         clearController();
-        Get.off(const HomeView());
+        Get.off(() => const HomeView());
       }
     });
   }
