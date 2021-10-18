@@ -8,8 +8,13 @@ class ProductsController extends GetxController {
   ProductsController(this._productsRepository);
 
   RxList<ProductModel> allProducts = <ProductModel>[].obs;
+  RxList<ProductModel> selectedProducts = <ProductModel>[].obs;
 
   Future<void> getAllProducts() async {
     allProducts.assignAll(await _productsRepository.getAllProducts());
+  }
+
+  void addProductToCart(ProductModel product) {
+    selectedProducts.add(product);
   }
 }

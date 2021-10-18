@@ -20,9 +20,14 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        heightFactor: 0.75,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/logo.png',
+              height: 200,
+            ),
             FractionallySizedBox(
               widthFactor: 0.75,
               child: Column(
@@ -45,7 +50,7 @@ class LoginView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: Get.width * 0.1),
               child: Obx(
-                () => TextButton(
+                () => OutlinedButton(
                   child: const Text('Login'),
                   onPressed: _authController.isEmailSenhaPreenchidos
                       ? () async {

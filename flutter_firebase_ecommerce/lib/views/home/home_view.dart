@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
+import 'package:flutter_firebase_ecommerce/views/home/widgets/custom_fab.dart';
 import 'package:flutter_firebase_ecommerce/views/login/widgets/product_item_.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Pokemart'),
       ),
       body: Center(
         child: Obx(
@@ -28,9 +29,9 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => 1 + 1,
-        child: const Icon(Icons.shopping_cart_outlined),
+      floatingActionButton: Obx(
+        () => CustomFAB(
+            cartProductsLength: _productsController.selectedProducts.length),
       ),
     );
   }
