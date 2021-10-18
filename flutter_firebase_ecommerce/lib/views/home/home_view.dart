@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/custom_fab.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/search_text_form_field.dart';
 import 'package:flutter_firebase_ecommerce/views/login/widgets/product_item_.dart';
 import 'package:get/get.dart';
 
+import 'widgets/shopping_cart_modal.dart';
+
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
 
   final ProductsController _productsController = Get.find();
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,18 @@ class HomeView extends StatelessWidget {
       ),
       floatingActionButton: Obx(
         () => CustomFAB(
-            cartProductsLength: _productsController.selectedProducts.length),
+            onPressed: () => showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => FractionallySizedBox(
+                    heightFactor: 0.9,
+                    child: Container(
+                      color: Colors.white,
+                      child: ShoppingCartModal(),
+                    ),
+                  ),
+                ),
+            counterIndicator: _cartController.cartItens.length),
       ),
     );
   }

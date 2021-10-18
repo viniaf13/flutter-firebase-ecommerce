@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/models/product_model.dart';
 import 'package:flutter_firebase_ecommerce/utils/snackbar_utils.dart';
@@ -10,6 +11,7 @@ class ProductItem extends StatelessWidget {
   ProductItem(this.product, {Key? key}) : super(key: key);
 
   final ProductsController _productsController = Get.find();
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +48,7 @@ class ProductItem extends StatelessWidget {
                   splashColor: Colors.blueAccent,
                   //splashRadius: 20,
                   icon: const Icon(Icons.add_shopping_cart),
-                  onPressed: () {
-                    _productsController.addProductToCart(product);
-                    SnackbarUtils.showSucessSnackbar(
-                        title: 'Produto adicionado com sucesso',
-                        message:
-                            '${product.name} foi adicionado ao carrinho de compras.');
-                  })
+                  onPressed: () => _cartController.addItemToCart(product))
             ],
           ),
         ],

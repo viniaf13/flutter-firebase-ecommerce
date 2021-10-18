@@ -4,7 +4,6 @@ import 'package:flutter_firebase_ecommerce/repositories/products_repository.dart
 import 'package:get/get.dart';
 
 class ProductsController extends GetxController {
-  // ignore: unused_field
   final ProductsRepository _productsRepository;
   ProductsController(this._productsRepository);
 
