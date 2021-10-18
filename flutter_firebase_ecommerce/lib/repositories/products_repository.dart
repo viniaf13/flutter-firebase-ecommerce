@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_firebase_ecommerce/models/product_model.dart';
-import 'package:flutter_firebase_ecommerce/utils/error_utils.dart';
+import 'package:flutter_firebase_ecommerce/utils/snackbar_utils.dart';
 import 'interfaces/i_products_repository.dart';
 
 class ProductsRepository implements IProductsRepository {
@@ -15,7 +15,7 @@ class ProductsRepository implements IProductsRepository {
           .toList();
       return allProducts;
     } catch (e) {
-      ErrorUtils.showErrorSnackbar(
+      SnackbarUtils.showErrorSnackbar(
           title: 'Erro na obtenção dos produtos:',
           message:
               'Ocorreu um erro na obtenção dos produtos. Tente novamente mais tarde.');
