@@ -5,6 +5,7 @@ import 'package:flutter_firebase_ecommerce/controllers/authentication_controller
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/home_view.dart';
 import 'package:flutter_firebase_ecommerce/views/login/widgets/login_text_form.dart';
+import 'package:flutter_firebase_ecommerce/views/shared/loading_widget.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/instance_manager.dart';
@@ -48,6 +49,7 @@ class LoginView extends StatelessWidget {
                   child: const Text('Login'),
                   onPressed: _authController.isEmailSenhaPreenchidos
                       ? () async {
+                          LoadingWidget.show(context);
                           await _authController
                               .signIn(_authController.email.value,
                                   _authController.password.value)
@@ -57,6 +59,7 @@ class LoginView extends StatelessWidget {
                               Get.off(() => HomeView());
                             }
                           });
+                          LoadingWidget.suppress();
                         }
                       : null,
                 ),

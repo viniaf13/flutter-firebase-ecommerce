@@ -15,24 +15,22 @@ class HomeView extends StatelessWidget {
         title: const Text('Home'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Obx(
-              () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _productsController.allProducts.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ProductItem(_productsController.allProducts[index]);
-                  }),
-            ),
-          ],
+        child: Obx(
+          () => GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+            padding: const EdgeInsets.all(10),
+            mainAxisSpacing: 4.0,
+            crossAxisSpacing: 10.0,
+            children: _productsController.allProducts.map((product) {
+              return ProductItem(product);
+            }).toList(),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => 1 + 1,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.shopping_cart_outlined),
       ),
     );
   }

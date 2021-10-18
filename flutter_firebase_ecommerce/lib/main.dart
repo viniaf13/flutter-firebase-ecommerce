@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Framework Ecommerce',
+      // navigatorKey: Get.key,
+      // navigatorObservers: [GetObserver()],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
