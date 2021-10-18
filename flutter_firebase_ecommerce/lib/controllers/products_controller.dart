@@ -8,8 +8,7 @@ class ProductsController extends GetxController {
   final ProductsRepository _productsRepository;
   ProductsController(this._productsRepository);
 
-  Rx<TextEditingController> searchProductController =
-      TextEditingController().obs;
+  TextEditingController searchProductController = TextEditingController();
   Rx<String> searchProductTerm = ''.obs;
 
   RxList<ProductModel> allProducts = <ProductModel>[].obs;

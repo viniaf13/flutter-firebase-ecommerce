@@ -23,7 +23,7 @@ class SearchTextFormField extends StatelessWidget {
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.blueAccent))),
       textInputAction: TextInputAction.search,
-      controller: _productsController.searchProductController.value,
+      controller: _productsController.searchProductController,
       onChanged: (String text) =>
           _productsController.searchProductTerm.value = text,
     );
