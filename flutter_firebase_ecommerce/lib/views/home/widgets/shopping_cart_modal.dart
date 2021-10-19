@@ -44,13 +44,30 @@ class ShoppingCartModal extends StatelessWidget {
           bottom: 30,
           child: Container(
             width: Get.width,
-            color: Colors.blueAccent,
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Obx(
-              () => TextButton(
-                child: Text(
-                    'Checkout (\$${_cartController.totalCartPrice.value})'),
-                onPressed: null,
+              () => GestureDetector(
+                onTap: null,
+                child: PhysicalModel(
+                  color: Colors.grey.withOpacity(.4),
+                  elevation: 2,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blueAccent,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.all(14),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Checkout (\$${_cartController.totalCartPrice.value})',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
