@@ -46,8 +46,10 @@ class ShoppingCartItem extends StatelessWidget {
                   children: [
                     IconButton(
                         icon: const Icon(Icons.chevron_left),
-                        onPressed: () =>
-                            _cartController.decreaseItemQuantity(cartItem)),
+                        onPressed: cartItem.quantity > 1
+                            ? () =>
+                                _cartController.decreaseItemQuantity(cartItem)
+                            : null),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

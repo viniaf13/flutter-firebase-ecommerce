@@ -49,7 +49,9 @@ class ShoppingCartModal extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Obx(
               () => GestureDetector(
-                onTap: () async => _generateCheckoutPDF(),
+                onTap: _cartController.cartItens.isNotEmpty
+                    ? () async => _generateCheckoutPDF()
+                    : null,
                 child: PhysicalModel(
                   color: Colors.grey.withOpacity(.4),
                   elevation: 2,
@@ -57,7 +59,9 @@ class ShoppingCartModal extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.blueAccent,
+                      color: _cartController.cartItens.isNotEmpty
+                          ? Colors.blueAccent
+                          : Colors.blueGrey[300],
                     ),
                     child: Container(
                       margin: const EdgeInsets.all(14),
@@ -122,7 +126,8 @@ class ShoppingCartModal extends StatelessWidget {
                         ),
                         pw.Align(
                           alignment: pw.Alignment.centerRight,
-                          child: pw.Text(cartItem.totalItemPrice.toString(),
+                          child: pw.Text(
+                              '\$${cartItem.totalItemPrice.toString()}',
                               style: const pw.TextStyle(fontSize: 18)),
                         )
                       ]))
@@ -134,7 +139,7 @@ class ShoppingCartModal extends StatelessWidget {
             child: pw.Align(
               alignment: pw.Alignment.centerRight,
               child: pw.Text(
-                'Valor total: ${_cartController.totalCartPrice.toString()}',
+                'Valor total: \$${_cartController.totalCartPrice.toString()}',
                 style:
                     pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
               ),
