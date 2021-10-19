@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
-import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/models/product_model.dart';
-import 'package:flutter_firebase_ecommerce/utils/snackbar_utils.dart';
 import 'package:get/instance_manager.dart';
 
 class ProductItem extends StatelessWidget {
@@ -10,7 +8,6 @@ class ProductItem extends StatelessWidget {
 
   ProductItem(this.product, {Key? key}) : super(key: key);
 
-  final ProductsController _productsController = Get.find();
   final CartController _cartController = Get.find();
 
   @override

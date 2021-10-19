@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/models/cart_item_model.dart';
-import 'package:flutter_firebase_ecommerce/models/product_model.dart';
+import 'package:get/get.dart';
 
 class ShoppingCartItem extends StatelessWidget {
   final CartItemModel cartItem;
 
-  ShoppingCartItem({required this.cartItem});
+  ShoppingCartItem({Key? key, required this.cartItem}) : super(key: key);
+
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +38,8 @@ class ShoppingCartItem extends StatelessWidget {
               children: [
                 IconButton(
                     icon: const Icon(Icons.chevron_left),
-                    onPressed: () {
-                      //cartController.decreaseQuantity(cartItem);
-                    }),
+                    onPressed: () =>
+                        _cartController.decreaseItemQuantity(cartItem)),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -46,9 +48,8 @@ class ShoppingCartItem extends StatelessWidget {
                 ),
                 IconButton(
                     icon: const Icon(Icons.chevron_right),
-                    onPressed: () {
-                      //cartController.increaseQuantity(cartItem);
-                    }),
+                    onPressed: () =>
+                        _cartController.increaseItemQuantity(cartItem)),
               ],
             )
           ],

@@ -5,7 +5,6 @@ import 'package:get/state_manager.dart';
 
 class CartController extends GetxController {
   RxList<CartItemModel> cartItens = <CartItemModel>[].obs;
-  Rx<int> totalCartPrice = 0.obs;
 
   void addItemToCart(ProductModel product) {
     if (cartItens.any((item) => product.id == item.id)) {
@@ -18,10 +17,31 @@ class CartController extends GetxController {
           quantity: 1,
           totalItemPrice: product.price,
           id: product.id));
-      totalCartPrice.value += product.price;
+
       SnackbarUtils.showSucessSnackbar(
           title: 'Produto adicionado com sucesso',
           message: '${product.name} foi adicionado ao carrinho de compras.');
+    }
+  }
+
+  Rx<int> get totalCartPrice =>
+      cartItens.fold<int>(0, (prev, item) => prev + item.totalItemPrice).obs;
+
+  void increaseItemQuantity(CartItemModel cartItem) {
+    int itemIndex = cartItens.indexWhere((item) => item.id == cartItem.id);
+    if (itemIndex != -1) {
+      cartItens[itemIndex].quantity++;
+      cartItens[itemIndex].totalItemPrice += cartItem.product.price;
+      cartItens.refresh();
+    }
+  }
+
+  void decreaseItemQuantity(CartItemModel cartItem) {
+    int itemIndex = cartItens.indexWhere((item) => item.id == cartItem.id);
+    if (itemIndex != -1) {
+      cartItens[itemIndex].quantity--;
+      cartItens[itemIndex].totalItemPrice -= cartItem.product.price;
+      cartItens.refresh();
     }
   }
 }
