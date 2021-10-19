@@ -3,6 +3,8 @@ import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/shopping_cart_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class ShoppingCartModal extends StatelessWidget {
   ShoppingCartModal({Key? key}) : super(key: key);
@@ -47,7 +49,7 @@ class ShoppingCartModal extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Obx(
               () => GestureDetector(
-                onTap: null,
+                onTap: () async => _generateCheckoutPDF(),
                 child: PhysicalModel(
                   color: Colors.grey.withOpacity(.4),
                   elevation: 2,
@@ -74,5 +76,80 @@ class ShoppingCartModal extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _generateCheckoutPDF() async {
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.Page(
+      build: (pw.Context context) => pw.Center(
+          child: pw.Column(
+        children: [
+          //pw.Image( 'assets/images/logo.png'),
+          pw.Padding(
+            padding: const pw.EdgeInsets.only(top: 18, bottom: 60),
+            child: pw.Text('POKEMART - INVOICE',
+                style:
+                    pw.TextStyle(fontSize: 32, fontWeight: pw.FontWeight.bold)),
+          ),
+          pw.Container(
+            padding: const pw.EdgeInsets.all(20.0),
+            child: pw.Table(children: [
+              pw.TableRow(children: [
+                pw.Text('PRODUTO',
+                    style: pw.TextStyle(
+                        fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                pw.Text('QUANTIDADE',
+                    style: pw.TextStyle(
+                        fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                pw.Text('VALOR',
+                    style: pw.TextStyle(
+                        fontSize: 24, fontWeight: pw.FontWeight.bold)),
+              ])
+            ]),
+          ),
+          pw.Container(
+            alignment: pw.Alignment.center,
+            padding: const pw.EdgeInsets.all(20.0),
+            child: pw.Table(
+              children: _cartController.cartItens
+                  .map((cartItem) => pw.TableRow(children: [
+                        pw.Text(cartItem.product.name,
+                            style: const pw.TextStyle(fontSize: 18)),
+                        pw.Center(
+                          child: pw.Text(cartItem.quantity.toString(),
+                              style: const pw.TextStyle(fontSize: 18)),
+                        ),
+                        pw.Align(
+                          alignment: pw.Alignment.centerRight,
+                          child: pw.Text(cartItem.totalItemPrice.toString(),
+                              style: const pw.TextStyle(fontSize: 18)),
+                        )
+                      ]))
+                  .toList(),
+            ),
+          ),
+          pw.Padding(
+            padding: const pw.EdgeInsets.only(top: 20),
+            child: pw.Align(
+              alignment: pw.Alignment.centerRight,
+              child: pw.Text(
+                'Valor total: ${_cartController.totalCartPrice.toString()}',
+                style:
+                    pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+              ),
+            ),
+          )
+        ],
+      )),
+    ));
+
+    var pdfBytes = await pdf.save();
+
+    WcFlutterShare.share(
+        sharePopupTitle: 'Pokemart Checkout',
+        fileName: 'PokemartCheckout.pdf',
+        mimeType: 'application/pdf',
+        bytesOfFile: pdfBytes);
   }
 }
