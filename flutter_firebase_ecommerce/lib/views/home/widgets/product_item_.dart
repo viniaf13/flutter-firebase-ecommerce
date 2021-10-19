@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/models/product_model.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 
 class ProductItem extends StatelessWidget {
@@ -13,6 +14,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       elevation: 5,
       shadowColor: Colors.grey.withOpacity(.5),
       child: Column(
@@ -26,7 +28,7 @@ class ProductItem extends StatelessWidget {
               ),
               child: Image.network(
                 product.image,
-                scale: 0.25,
+                scale: Get.size.aspectRatio * 0.8,
                 filterQuality: FilterQuality.none,
               ),
             ),
@@ -36,6 +38,7 @@ class ProductItem extends StatelessWidget {
                   const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -43,8 +46,8 @@ class ProductItem extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold))),
               IconButton(
+                  padding: EdgeInsets.all(0),
                   splashColor: Colors.blueAccent,
-                  //splashRadius: 20,
                   icon: const Icon(Icons.add_shopping_cart),
                   onPressed: () => _cartController.addItemToCart(product))
             ],

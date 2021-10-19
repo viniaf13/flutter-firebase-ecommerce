@@ -18,8 +18,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Framework Ecommerce',
-      // navigatorKey: Get.key,
-      // navigatorObservers: [GetObserver()],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

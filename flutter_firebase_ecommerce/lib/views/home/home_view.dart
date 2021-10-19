@@ -16,6 +16,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = Get.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -23,7 +24,7 @@ class HomeView extends StatelessWidget {
         centerTitle: true,
         title: Image.asset(
           'assets/images/logo.png',
-          height: 150,
+          height: screenWidth * 0.365,
         ),
       ),
       body: SingleChildScrollView(
@@ -31,17 +32,22 @@ class HomeView extends StatelessWidget {
           () => Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.06,
+                    right: screenWidth * 0.06,
+                    top: screenWidth * 0.02,
+                    bottom: screenWidth * 0.04),
                 child: SearchTextFormField(
                     productsController: _productsController),
               ),
               GridView.count(
+                physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 crossAxisCount: 2,
                 childAspectRatio: 1,
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(screenWidth * 0.025),
                 mainAxisSpacing: 4.0,
-                crossAxisSpacing: 10.0,
+                crossAxisSpacing: screenWidth * 0.025,
                 children: _productsController.displayedProducts.map((product) {
                   return ProductItem(product);
                 }).toList(),
