@@ -12,56 +12,66 @@ class ShoppingCartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.network(
-            cartItem.product.image,
-            scale: 0.75,
-            width: 70,
-          ),
-        ),
-        Expanded(
-            child: Wrap(
-          direction: Axis.vertical,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Card(
+        elevation: 1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  cartItem.product.name,
-                  style: const TextStyle(fontSize: 18),
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    icon: const Icon(Icons.chevron_left),
-                    onPressed: () =>
-                        _cartController.decreaseItemQuantity(cartItem)),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cartItem.quantity.toString(),
-                  ),
+            IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red[500],
                 ),
-                IconButton(
-                    icon: const Icon(Icons.chevron_right),
-                    onPressed: () =>
-                        _cartController.increaseItemQuantity(cartItem)),
+                onPressed: () => _cartController.removeItemFromCart(cartItem)),
+            Image.network(
+              cartItem.product.image,
+              scale: 0.75,
+              width: 70,
+            ),
+            Expanded(
+                child: Wrap(
+              direction: Axis.vertical,
+              children: [
+                Container(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      cartItem.product.name,
+                      style: const TextStyle(fontSize: 18),
+                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        icon: const Icon(Icons.chevron_left),
+                        onPressed: () =>
+                            _cartController.decreaseItemQuantity(cartItem)),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        cartItem.quantity.toString(),
+                      ),
+                    ),
+                    IconButton(
+                        icon: const Icon(Icons.chevron_right),
+                        onPressed: () =>
+                            _cartController.increaseItemQuantity(cartItem)),
+                  ],
+                )
               ],
-            )
+            )),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, right: 15.0),
+              child: Text(
+                '\$${cartItem.totalItemPrice}',
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
-        )),
-        Padding(
-          padding: const EdgeInsets.all(14),
-          child: Text(
-            '\$${cartItem.totalItemPrice}',
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
         ),
-      ],
+      ),
     );
   }
 }

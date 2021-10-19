@@ -44,4 +44,12 @@ class CartController extends GetxController {
       cartItens.refresh();
     }
   }
+
+  void removeItemFromCart(CartItemModel cartItem) {
+    int itemIndex = cartItens.indexWhere((item) => item.id == cartItem.id);
+    if (itemIndex != -1) {
+      cartItens.removeAt(itemIndex);
+      cartItens.refresh();
+    }
+  }
 }
