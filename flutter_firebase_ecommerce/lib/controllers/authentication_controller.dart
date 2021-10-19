@@ -10,7 +10,6 @@ class AuthenticationController extends GetxController {
 
   bool _isLoggedIn = false;
 
-  // ignore: unused_field
   final UserRepository _userRepository;
 
   bool get isEmailSenhaPreenchidos =>

@@ -27,6 +27,7 @@ class ProductItem extends StatelessWidget {
               child: Image.network(
                 product.image,
                 scale: 0.25,
+                filterQuality: FilterQuality.none,
               ),
             ),
           ),

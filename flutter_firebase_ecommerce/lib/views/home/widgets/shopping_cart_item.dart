@@ -29,6 +29,7 @@ class ShoppingCartItem extends StatelessWidget {
               cartItem.product.image,
               scale: 0.75,
               width: 70,
+              filterQuality: FilterQuality.none,
             ),
             Expanded(
                 child: Wrap(
