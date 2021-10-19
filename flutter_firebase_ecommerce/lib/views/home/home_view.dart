@@ -3,7 +3,7 @@ import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/custom_fab.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/search_text_form_field.dart';
-import 'package:flutter_firebase_ecommerce/views/login/widgets/product_item_.dart';
+import 'package:flutter_firebase_ecommerce/views/home/widgets/product_item_.dart';
 import 'package:get/get.dart';
 
 import 'widgets/shopping_cart_modal.dart';
