@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_ecommerce/controllers/authentication_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/custom_fab.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/search_text_form_field.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/product_item_.dart';
+import 'package:flutter_firebase_ecommerce/views/login/login_view.dart';
 import 'package:get/get.dart';
 
 import 'widgets/shopping_cart_modal.dart';
@@ -13,6 +15,7 @@ class HomeView extends StatelessWidget {
 
   final ProductsController _productsController = Get.find();
   final CartController _cartController = Get.find();
+  final AuthenticationController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,19 @@ class HomeView extends StatelessWidget {
         title: Image.asset(
           'assets/images/logo.png',
           height: screenWidth * 0.365,
+        ),
+        leading: IconButton(
+          padding: EdgeInsets.only(left: screenWidth * 0.025),
+          icon: const Icon(
+            Icons.logout,
+            color: Colors.blueAccent,
+          ),
+          onPressed: () {
+            _productsController.clearController();
+            _cartController.clearController();
+            _authController.signOut();
+            Get.off(() => LoginView());
+          },
         ),
       ),
       body: SingleChildScrollView(

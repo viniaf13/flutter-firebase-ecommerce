@@ -9,7 +9,7 @@ class CartController extends GetxController {
   void addItemToCart(ProductModel product) {
     if (cartItens.any((item) => product.id == item.id)) {
       SnackbarUtils.showErrorSnackbar(
-          title: 'Produto já adicionado',
+          title: 'Produto já adicionado:',
           message: 'Este produto já foi adicionado ao carrinho de compras.');
     } else {
       cartItens.add(CartItemModel(
@@ -19,7 +19,7 @@ class CartController extends GetxController {
           id: product.id));
 
       SnackbarUtils.showSucessSnackbar(
-          title: 'Produto adicionado com sucesso',
+          title: 'Produto adicionado com sucesso:',
           message: '${product.name} foi adicionado ao carrinho de compras.');
     }
   }
@@ -51,5 +51,9 @@ class CartController extends GetxController {
       cartItens.removeAt(itemIndex);
       cartItens.refresh();
     }
+  }
+
+  void clearController() {
+    cartItens = <CartItemModel>[].obs;
   }
 }

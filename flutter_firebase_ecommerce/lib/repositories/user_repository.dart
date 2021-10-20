@@ -26,4 +26,31 @@ class UserRepository implements IUserRepository {
       return false;
     }
   }
+
+  @override
+  Future<bool> registerUser(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        SnackbarUtils.showErrorSnackbar(
+            title: 'Email já cadastrado:',
+            message: 'Já existe um usuário cadastrado para esse email.');
+      } else if (e.code == 'weak-password') {
+        SnackbarUtils.showErrorSnackbar(
+            title: 'Senha muito fraca:',
+            message: 'A senha informada precisa ter no minimo 6 caracteres.');
+      } else if (e.code == 'invalid-email') {
+        SnackbarUtils.showErrorSnackbar(
+            title: 'Email inválido:', message: 'O email informado é inválido.');
+      } else {
+        SnackbarUtils.showErrorSnackbar(
+            title: 'Erro no cadastro:',
+            message: 'Ocorreu um problema, tente novamente mais tarde.');
+      }
+      return false;
+    }
+  }
 }

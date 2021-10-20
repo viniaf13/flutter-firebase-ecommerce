@@ -46,7 +46,6 @@ class ProductItem extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold))),
               IconButton(
-                  padding: EdgeInsets.all(0),
                   splashColor: Colors.blueAccent,
                   icon: const Icon(Icons.add_shopping_cart),
                   onPressed: () => _cartController.addItemToCart(product))

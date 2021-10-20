@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/authentication_controller.dart';
 import 'package:flutter_firebase_ecommerce/controllers/products_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/home_view.dart';
-import 'package:flutter_firebase_ecommerce/views/login/widgets/login_text_form.dart';
+import 'package:flutter_firebase_ecommerce/views/shared/login_text_form.dart';
 import 'package:flutter_firebase_ecommerce/views/shared/loading_widget.dart';
+import 'package:flutter_firebase_ecommerce/views/signup/signup_view.dart';
 import 'package:get/get.dart';
 
 class LoginView extends StatelessWidget {
@@ -48,14 +49,11 @@ class LoginView extends StatelessWidget {
                 padding: EdgeInsets.only(top: screenWidth * 0.1),
                 child: Obx(
                   () => OutlinedButton(
-                    child: const Text('Login'),
+                    child: const Text('Entrar'),
                     onPressed: _authController.isEmailSenhaPreenchidos
                         ? () async {
                             LoadingWidget.show(context);
-                            await _authController
-                                .signIn(_authController.email.value,
-                                    _authController.password.value)
-                                .then((sucess) async {
+                            await _authController.signIn().then((sucess) async {
                               if (sucess) {
                                 await _productsController.getAllProducts();
                                 Get.off(() => HomeView());
@@ -65,6 +63,13 @@ class LoginView extends StatelessWidget {
                           }
                         : null,
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: screenWidth * 0.025),
+                child: OutlinedButton(
+                  child: const Text('Cadastrar'),
+                  onPressed: () => Get.to(() => SignupView()),
                 ),
               ),
             ],

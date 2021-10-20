@@ -11,14 +11,9 @@ class ProductsController extends GetxController {
   Rx<String> searchProductTerm = ''.obs;
 
   RxList<ProductModel> allProducts = <ProductModel>[].obs;
-  RxList<ProductModel> selectedProducts = <ProductModel>[].obs;
 
   Future<void> getAllProducts() async {
     allProducts.assignAll(await _productsRepository.getAllProducts());
-  }
-
-  void addProductToCart(ProductModel product) {
-    selectedProducts.add(product);
   }
 
   List<ProductModel> get displayedProducts => searchProductTerm.value.isEmpty
@@ -28,4 +23,10 @@ class ProductsController extends GetxController {
               .toLowerCase()
               .contains(searchProductTerm.value.toLowerCase()))
           .toList();
+
+  void clearController() {
+    searchProductTerm = ''.obs;
+    allProducts = <ProductModel>[].obs;
+    searchProductController.clear();
+  }
 }
