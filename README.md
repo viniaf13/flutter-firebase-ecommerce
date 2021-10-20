@@ -1,2 +1,2 @@
-# flutter-firebase-ecommerce
-Flutter firebase ecommerce example
+# Flutter Pokemart
+Flutter firebase ecommerce example using Pokémon as inspiration
