@@ -51,12 +51,7 @@ class AuthenticationController extends GetxController {
     }
     bool isUserRegistered =
         await _userRepository.registerUser(email.value, password.value);
-    if (isUserRegistered) {
-      SnackbarUtils.showSucessSnackbar(
-          title: 'Sua conta foi criada com sucesso!',
-          message: 'Utilize seu email e senha para logar no aplicativo.');
-      clearController();
-    }
+    if (isUserRegistered) clearController();
     return isUserRegistered;
   }
 

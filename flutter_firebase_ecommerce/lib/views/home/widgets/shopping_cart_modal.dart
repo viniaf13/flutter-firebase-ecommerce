@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/cart_controller.dart';
 import 'package:flutter_firebase_ecommerce/views/home/widgets/shopping_cart_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ecommerce/controllers/authentication_controller.dart';
+import 'package:flutter_firebase_ecommerce/utils/snackbar_utils.dart';
 import 'package:flutter_firebase_ecommerce/views/login/login_view.dart';
 import 'package:flutter_firebase_ecommerce/views/shared/loading_widget.dart';
 import 'package:flutter_firebase_ecommerce/views/shared/login_text_form.dart';
@@ -72,7 +73,14 @@ class SignupView extends StatelessWidget {
                             ? () async {
                                 LoadingWidget.show(context);
                                 await _authController.signUp().then((sucess) {
-                                  if (sucess) Get.off(() => LoginView());
+                                  if (sucess) {
+                                    Get.off(() => LoginView());
+                                    SnackbarUtils.showSucessSnackbar(
+                                        title:
+                                            'Sua conta foi criada com sucesso!',
+                                        message:
+                                            'Utilize seu email e senha para logar no aplicativo.');
+                                  }
                                 });
                                 LoadingWidget.suppress();
                               }
